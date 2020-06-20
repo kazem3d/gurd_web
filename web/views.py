@@ -6,18 +6,20 @@ from web.reporter import analyzer
 
 # Create your views here.
 
-def analyse():
-    pass
 
 
 def report(request):
-    
-    (left,height)=analyzer()
-   
-    context={
-        'labels':left,
-        'data':height
-    }
+    try:
+        (left,height)=analyzer()
+        context={
+                'labels':left,
+                'data':height
+                }
+
+    except :
+        context={}
+
+        
     return render(request,'web/report.html',context)
 
 def upload(request):
@@ -26,5 +28,5 @@ def upload(request):
         fs=FileSystemStorage()
         fs.delete('1.xls')
         filename=fs.save('1.xls',myfile)
-        return HttpResponse('upload done')
+        return HttpResponse('بارگذاری انجام شد')
     return render(request,'web/upload.html')

@@ -1,6 +1,11 @@
 {% extends 'web/_base.html' %}
 {% load static %}
 
+
+{% block dropbox %} 
+  <a class="btn btn-dark" href={% url 'web:upload' %} role="button">بارگذاری</a>
+{% endblock dropbox %}
+
 {% block chart1 %}
 
 

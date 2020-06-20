@@ -220,7 +220,9 @@ def analyzer():
         
 
         for row in csv_reader:
-            if line_count > 0 and line_count%2 == 0:
+            # if line_count > 0 and line_count%2 == 0:
+            if line_count > 0 :
+
                 
                 name=row[0]
                 print(name)
