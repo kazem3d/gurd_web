@@ -111,7 +111,7 @@ def analyzer():
 
                     #converting date to jalali
                     tour_date=jdatetime.datetime.fromgregorian(datetime=start_time)
-                    tour_date=tour_date.strftime("%y/%m/%d")
+                    tour_date=tour_date.strftime("%Y-%m-%d")
 
                     print('name=',name)
                     print('start_time= ',start_time)
@@ -138,7 +138,7 @@ def analyzer():
                     print('duration= ',duration)
                     
                     #record a row of data in main table of datebase
-                    record_in_database((name,tour_date,duration,tour_counter-1))
+                    record_in_database((name,tour_date,int(duration),tour_counter-1))
 
                     #reset variable for nex loop
                     name=''
@@ -164,7 +164,7 @@ def analyzer():
                 print('number of tags that get checked = ',tour_counter)
                 print('duration= ',duration)
             
-                record_in_database((name,tour_date,duration,tour_counter))
+                record_in_database((name,tour_date,int(duration),tour_counter))
 
                 name=''
                 start_time=''
@@ -220,8 +220,8 @@ def analyzer():
         
 
         for row in csv_reader:
-            # if line_count > 0 and line_count%2 == 0:
-            if line_count > 0 :
+            if line_count > 0 and line_count%2 == 0:
+            # if line_count > 0 :
 
                 
                 name=row[0]
@@ -234,6 +234,35 @@ def analyzer():
                 left.append(name)
                 height.append(data)
             line_count+=1
+    print('%%%%%%%%%%%%%$$$$$$$$$$$$$$$$$$$$$$$$%%%%%%%%%%%%')
     print(left)
     print(height)
     return (left,height)
+
+
+
+def read_data():
+
+    #create and connect to report_datebase
+
+    conn=sqlite3.connect('web/report/report_database')
+    curser=conn.cursor()
+
+
+    #function for reading a table from date base and return data of row in list of list
+    def read_from_datebase(table_name,order):
+        _list=[]
+      
+        curser.execute('SELECT * FROM %s ORDER BY %s ' %(table_name,order))
+        rows=curser.fetchall()
+        for row in rows:
+            row=list(row)
+            _list.append(row)
+        return _list
+
+
+    tour_list=read_from_datebase('main','tour_date')
+        
+    return tour_list
+        
+  
