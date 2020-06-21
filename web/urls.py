@@ -6,7 +6,5 @@ app_name='web'
 urlpatterns = [
     path('', report ,name='report'),
     path('upload/', upload,name='upload'),
-    path('import/', import_data,name='import'),
-
-
+   
 ]

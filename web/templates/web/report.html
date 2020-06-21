@@ -2,6 +2,17 @@
 {% load static %}
 
 
+{% block main %}
+
+<div class='date21'>
+  <p  >
+  گشت زنی مورخ :
+  {{date1|date:" d/m/Y"}}
+  </p>
+</div>
+
+ {% endblock main %}
+
 {% block dropbox %} 
   <a class="btn btn-dark" href={% url 'web:upload' %} role="button">بارگذاری</a>
 {% endblock dropbox %}
@@ -23,17 +34,17 @@ new Chart(document.getElementById("bar-chart"), {
       labels: {{labels|safe}},
       datasets: [
         {
-          label: "long change",
+          label: "دقیقه",
           backgroundColor: "#6ACA22",
           data: {{data|safe}}
         },
       ]
     },
     options: {
-      legend: { display: true },
+      legend: { display: false },
       title: {
         display: true,
-        text: 'Change in long and short positions'
+        text:  'نمودار مدت گشت زنی به دقیقه'
       }
     }
 })
