@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 # Create your models here.
 
@@ -24,6 +25,7 @@ class TourData(models.Model):
     date=models.DateField()
     duration=models.IntegerField()
     number=models.IntegerField()
+    upload_date=models.DateField('تاریخ آپلود',auto_now_add=True)
 
     class Meta:
         verbose_name = 'tour data'

@@ -13,18 +13,17 @@ def report(request):
   
     left=[]
     height=[]   
-    tour_data_query=TourData.objects.all()
+    tour_data_query=TourData.objects.filter(upload_date__gte=datetime.date.today())
     tour_data_groupby=tour_data_query.values('name').annotate(duration_sum=Sum('duration'))
     
     
     chart_data=tour_data_groupby.values_list('name','duration_sum')
-    # date1=chart_data[0][2]
-    date1='1399/1/2'
 
- 
+    if tour_data_query:
+        date=tour_data_query.values_list('date')[0][0]
+    else :
+        date=datetime.date.today()
 
-    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
-    print(date1)
     for i in chart_data:
         left.append(i[0])
         height.append(i[1])
@@ -35,7 +34,7 @@ def report(request):
     context={
             'labels':left,
             'data':height,
-            'date1':date1,
+            'date':date,
             }
     return render(request,'web/report.html',context)
 

@@ -23,10 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '!bzm(-1$dd=qg%=ab(73_gp4qz0qgsf%*fm78j_qrrzyfln8c@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-# ALLOWED_HOSTS = ['gurd-kazem3d.fandogh.cloud']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['gurd-kazem3d.fandogh.cloud']
+# ALLOWED_HOSTS = []
 
 
 
