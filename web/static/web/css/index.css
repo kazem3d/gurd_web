@@ -1,8 +1,17 @@
+body {
+  font-family: Lalezar  ;
+
+}
+
+
+
+
 .chart1 {
     display: block;
     margin: auto;
     width:65%;
     padding: 30px;
+    
   }
 
 
