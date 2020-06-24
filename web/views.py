@@ -5,6 +5,8 @@ from web.reporter import analyzer,read_data
 from.models import TourData
 from django.db.models import Count,Sum
 import datetime
+import jdatetime
+
 
 
 # Create your views here.
@@ -13,7 +15,7 @@ def report(request):
   
     left=[]
     height=[]   
-    tour_data_query=TourData.objects.filter(upload_date__gte=datetime.date.today())
+    tour_data_query=TourData.objects.filter(upload_date=datetime.date.today())
     tour_data_groupby=tour_data_query.values('name').annotate(duration_sum=Sum('duration'))
     
     
@@ -22,7 +24,7 @@ def report(request):
     if tour_data_query:
         date=tour_data_query.values_list('date')[0][0]
     else :
-        date=datetime.date.today()
+        date=jdatetime.date.today()
 
     for i in chart_data:
         left.append(i[0])
@@ -43,8 +45,9 @@ def import_data():
     tour_data=read_data()
 
     for row in tour_data:
+        
+        obj=TourData(name=row[1],date=row[2],duration=int(row[3]),number=row[4])
 
-        obj=TourData(name=row[1],date=row[2],duration=row[3],number=row[4])
         obj.save()   
 
 
@@ -58,12 +61,51 @@ def upload(request):
         try:
             analyzer()
             import_data()
+            context={
+                'message':'بارگذاری انجام گردید',
+                'message_color':'success'
+                    }
             
         except :
-            return HttpResponse('بارگذاری با خطا مواجه شد')
+            context={
+                'message':'بارگذاری  با خطا مواجه شد',
+                'message_color':'danger'
+            }
         
-        return HttpResponse('بارگذاری انجام شد')
+
+        return render(request,'web/upload.html',context)
+
+
     return render(request,'web/upload.html')
 
 
+def details_report(request)  :
+
+    left=[]
+    height=[]
+
+    if request.GET.get('gurd_name'):
+        name=request.GET.get('gurd_name')
+
+        tour_data_query=TourData.objects.filter(name__contains=name).order_by('date')
+
+        chart_data=tour_data_query.values_list('date','duration')
+        
+        for i in chart_data:
+            left.append(i[0].strftime("%m-%d"))
+            height.append(i[1])
+
+
+        context={
+                'labels':left,
+                'data':height,
+                'name':name
+                }
+        return render(request,'web/detail_report.html',context)
+
+
+    return render(request,'web/detail_report.html')
+
     
+
+ 

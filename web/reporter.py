@@ -164,69 +164,6 @@ def analyzer():
     curser.execute('CREATE TABLE  duration_tour AS SELECT name,sum(duration) as durations  FROM main GROUP BY name;') 
     curser.execute('CREATE TABLE IF NOT EXISTS number_of_tour AS SELECT name,sum(number) as numbers  FROM main GROUP BY name;') 
 
-    # #create a csv file from main table
-    # with open('web/report/report.csv', mode='w',encoding="utf-8") as f:
-    #     writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-
-    #     tour_list=read_from_datebase('main','tour_date')
-        
-    #     writer.writerow(['ردیف','نام','تاریخ','مدت به دقیقه','تعداد'])
-    #     for i in tour_list:
-    #         writer.writerow(i)
-
-    # #create a csv file from duration_tour table
-    # with open('web/report/report_duration_tour.csv', mode='w',encoding="utf-8") as f:
-    #     writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-
-    #     tour_list=read_from_datebase('duration_tour','durations')
-    #     writer.writerow(['نام','مدت'])
-    #     for i in tour_list:
-    #         writer.writerow(i)
-        
-
-
-    # #create a csv file from number_of_tour table
-    # with open('web/report/report_number_of_tour.csv', mode='w',encoding="utf-8") as f:
-    #     writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-
-    #     tour_list=read_from_datebase('number_of_tour','numbers')
-    #     writer.writerow(['نام','تعداد'])
-    #     for i in tour_list:
-    #         writer.writerow(i)
-
-    # name=''
-    # date=''
-    # left=[]
-    # height=[]
-
-
-    # with open('web/report/report_duration_tour.csv',encoding="utf_8") as f:
-    #     csv_reader = csv.reader(f, delimiter=',')
-
-    #     line_count = 0
-        
-
-    #     for row in csv_reader:
-    #         if line_count > 0 and line_count%2 == 0:
-    #         # if line_count > 0 :
-
-                
-    #             name=row[0]
-    #             print(name)
-    #             name=similar(name)
-    #             print(name)
-
-                
-    #             data=float(row[1])
-    #             left.append(name)
-    #             height.append(data)
-    #         line_count+=1
-    # print('%%%%%%%%%%%%%$$$$$$$$$$$$$$$$$$$$$$$$%%%%%%%%%%%%')
-    # print(left)
-    # print(height)
-    # return (left,height)
-
-
 
 def read_data():
 

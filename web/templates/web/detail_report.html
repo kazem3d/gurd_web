@@ -2,27 +2,28 @@
 {% load static %}
 
 
-{% block page_titile %}
-گزارش گشت نگهبانی
-{% endblock page_titile %}
+{% block navbar %} 
+    <form method="GET" enctype="text/plain">
+
+        <label for="gurd_name">نام نگهبان :</label>
+        <input type="text" name="gurd_name">
+        <button type="submit" > جستجو</button>
+    
+    </form>
+{% endblock navbar %}
 
 
 {% block main %}
 
 <div class='date21'>
   <p  >
-  گشت زنی مورخ :
-  {{date|date:" d/m/Y"}}
+  نام نگهبان :
+  {{name|safe}}
   </p>
 </div>
 
  {% endblock main %}
 
-{% block dropbox %} 
-  <a class="btn btn-dark" href={% url 'web:upload' %} role="button">بارگذاری</a>
-  <a class="btn btn-dark" href={% url 'web:details_report' %} role="button">گزارش گیری</a>
-
-{% endblock dropbox %}
 
 {% block chart1 %}
 
@@ -35,14 +36,16 @@
 </div>
 
 <script>
+
+
 new Chart(document.getElementById("bar-chart"), {
-    type: 'bar',
+    type: 'line',
     data: {
       labels: {{labels|safe}},
       datasets: [
         {
           label: "دقیقه",
-          backgroundColor: "#3A970E",
+          backgroundColor: "#2550FF",
           data: {{data|safe}}
         },
       ]

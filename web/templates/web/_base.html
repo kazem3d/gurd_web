@@ -18,14 +18,22 @@
 </head>
 <body>
 
+<div class='dropbox'>
+    {% block dropbox %}
+        <a class="btn btn-dark"  href={% url 'web:report' %} role="button" >صفحه اصلی</a>
+    {% endblock dropbox %}
+</div>
+
 <h1 style='margin:30px;text-align: center;'>
     {% block page_titile %}
     گزارش گشت نگهبانی
     {% endblock page_titile %}
 </h1>
 
-<div class="col"> 
-    {% block dropbox %}  {% endblock dropbox %}
+<div class="col" > 
+    
+
+    {% block navbar %} {% endblock navbar %} 
     {% block tabel %} {% endblock tabel %}
     {% block main %} {% endblock main %}
 
