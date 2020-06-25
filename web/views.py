@@ -2,7 +2,7 @@ from django.shortcuts import render,HttpResponse
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from web.reporter import analyzer,read_data
-from.models import TourData
+from.models import TourData,Comment
 from django.db.models import Count,Sum
 import datetime
 import jdatetime
@@ -13,6 +13,10 @@ import jdatetime
 
 def report(request):
   
+
+
+    comments=Comment.objects.all()
+
     left=[]
     height=[]   
     tour_data_query=TourData.objects.filter(upload_date=datetime.date.today())
@@ -37,6 +41,7 @@ def report(request):
             'labels':left,
             'data':height,
             'date':date,
+            'comments':comments
             }
     return render(request,'web/report.html',context)
 

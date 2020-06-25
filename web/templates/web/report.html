@@ -9,6 +9,21 @@
 
 {% block main %}
 
+<div class="comment">
+
+  <div class="alert alert-light" role="alert">
+    <h4 class="alert-heading">Well done!</h4>
+    {% for comment in comments%}
+      
+    <p>{{comment.content}}</p>
+    <p> {{comment.publidh_date}} </p>
+    <hr>
+    {% endfor %}
+    
+  </div>
+
+</div>
+
 <div class='date21'>
   <p  >
   گشت زنی مورخ :
