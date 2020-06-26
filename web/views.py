@@ -1,4 +1,4 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render,HttpResponse,HttpResponseRedirect
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from web.reporter import analyzer,read_data
@@ -6,6 +6,8 @@ from.models import TourData,Comment
 from django.db.models import Count,Sum
 import datetime
 import jdatetime
+from .forms import CommentForm
+from django.urls import reverse
 
 
 
@@ -14,8 +16,7 @@ import jdatetime
 def report(request):
   
 
-
-    comments=Comment.objects.all()
+    comments=Comment.objects.filter(publish_date__gt=datetime.date.today()).order_by('-publish_date')
 
     left=[]
     height=[]   
@@ -94,17 +95,32 @@ def details_report(request)  :
 
         tour_data_query=TourData.objects.filter(name__contains=name).order_by('date')
 
-        chart_data=tour_data_query.values_list('date','duration')
+        tour_data_groupby=tour_data_query.values('date').annotate(duration_sum=Sum('duration'))
+
+
+        chart_data=tour_data_groupby.values_list('date','duration_sum')
         
         for i in chart_data:
             left.append(i[0].strftime("%m-%d"))
             height.append(i[1])
 
+        #calculating moving avarage
+        N = 17
+        cumsum, moving_aves = [0], []
+
+        for i, x in enumerate(height, 1):
+            cumsum.append(cumsum[i-1] + x)
+            if i>=N:
+                moving_ave = (cumsum[i] - cumsum[i-N])/N
+                #can do stuff with moving_ave here
+                moving_aves.append(int(moving_ave))
+
 
         context={
                 'labels':left,
                 'data':height,
-                'name':name
+                'name':name,
+                'avarege':moving_aves
                 }
         return render(request,'web/detail_report.html',context)
 
@@ -112,5 +128,31 @@ def details_report(request)  :
     return render(request,'web/detail_report.html')
 
     
+def comment(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = CommentForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            obj=Comment()
+            message=form.cleaned_data['content']
+            obj.content=message
+            obj.save()        
+            
+    
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('web:report'))
 
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = CommentForm()
+
+    return render(request, 'web/comment.html', {'form': form})   
  
+def compare_report(request):
+    return HttpResponse ('<h1>در دست ساخت</h1>')
+
+def date_report(request):
+    return HttpResponse ('<h1>در دست ساخت</h1>')

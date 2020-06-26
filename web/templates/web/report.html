@@ -3,40 +3,61 @@
 
 
 {% block page_titile %}
-گزارش گشت نگهبانی
+ سامانه نگهبانی
 {% endblock page_titile %}
 
 
 {% block main %}
 
-<div class="comment">
+<h4 class="alert-dark" style="text-align: center;">گزارش روزانه</h4>
 
-  <div class="alert alert-light" role="alert">
-    <h4 class="alert-heading">Well done!</h4>
-    {% for comment in comments%}
+{% if comments %}
+  <div class="comment">
+    <div class="alert alert-dark" role="alert">
       
-    <p>{{comment.content}}</p>
-    <p> {{comment.publidh_date}} </p>
-    <hr>
-    {% endfor %}
+      {% for comment in comments%}
+        
+        <p>{{comment.content}}</p>
+        <p> {{comment.publish_date|date}} </p>
+        <hr>
     
+      {% endfor %}
+      
+    </div>
   </div>
 
-</div>
+{% else %}
+<br>
+<br>
+<br>
+{% endif%}
 
 <div class='date21'>
-  <p  >
-  گشت زنی مورخ :
-  {{date|date:" d/m/Y"}}
-  </p>
+  <h4 class="alert-dark" style="text-align: center;">
+      نمودار گشت زنی مورخ  :
+      {{date|date:" Y/m/d"}}
+  </h4>
+
 </div>
 
  {% endblock main %}
 
 {% block dropbox %} 
-  <a class="btn btn-dark" href={% url 'web:upload' %} role="button">بارگذاری</a>
-  <a class="btn btn-dark" href={% url 'web:details_report' %} role="button">گزارش گیری</a>
 
+  <div class="dropdown">
+
+    <a class="btn btn-dark" href={% url 'web:upload' %} role="button">بارگذاری</a>
+    <a class="btn btn-dark" href={% url 'web:comment' %} role="button">ثبت  گزارش </a>
+
+    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      گزارش گیری
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href={% url 'web:details_report' %}>انفرادی</a>
+      <a class="dropdown-item" href='#'>مقایسه ای</a>
+      <a class="dropdown-item" href='#'>زمانی</a>
+    </div>
+</div>
 {% endblock dropbox %}
 
 {% block chart1 %}

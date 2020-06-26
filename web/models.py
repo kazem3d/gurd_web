@@ -36,7 +36,7 @@ class TourData(models.Model):
 
 class Comment(models.Model):
     content=models.TextField('متن',)
-    publidh_date=models.DateTimeField('تاریخ ثبت',auto_now_add=True)
+    publish_date=models.DateTimeField('تاریخ ثبت',auto_now_add=True)
 
     def __str__(self):
         return '{}'.format(self.content)

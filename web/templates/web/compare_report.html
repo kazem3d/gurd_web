@@ -1,0 +1,25 @@
+{% extends 'web/_base.html' %}
+{% load static %}
+
+
+{% block page_titile %}
+مقایسه عملکرد نگهبانان
+{% endblock page_titile %}
+
+
+{% block dropbox %} 
+
+  <div class="dropdown">
+    {{ block.super }}
+
+    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      گزارش گیری
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href={% url 'web:details_report' %}>انفرادی</a>
+      <a class="dropdown-item" href="#">مقایسه ای</a>
+      <a class="dropdown-item" href="#">زمانی</a>
+    </div>
+  </div>
+
+{% endblock dropbox %} 

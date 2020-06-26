@@ -1,12 +1,77 @@
 {% extends 'web/_base.html' %}
 {% load static %}
 
+{% block page_titile %}
+گزارش گشت زنی نگهبان
+{% endblock page_titile %}
+
+{% block dropbox %} 
+
+  <div class="dropdown">
+    {{ block.super }}
+
+    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      گزارش گیری
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href={% url 'web:details_report' %}>انفرادی</a>
+      <a class="dropdown-item" href="#">مقایسه ای</a>
+      <a class="dropdown-item" href="#">زمانی</a>
+    </div>
+  </div>
+
+{% endblock dropbox %} 
+
+
 
 {% block navbar %} 
     <form method="GET" enctype="text/plain">
 
         <label for="gurd_name">نام نگهبان :</label>
-        <input type="text" name="gurd_name">
+        {% comment %} <input type="text" name="gurd_name"> {% endcomment %}
+        <select name="gurd_name"  >
+
+              <option value= 'میثم محمدی'>
+              میثم محمدی
+              </option>
+              <option value='آسترکی'>
+              آسترکی
+              </option>
+              <option value= 'حشمتی پور'>
+              حشمتی پور
+              </option>
+              <option value= 'باجلان'>
+              باجلان
+              </option>
+              <option value= 'مهرآبادی'>
+              مهرآبادی
+              </option>
+              <option value= 'دولت آبادی'>
+              دولت آبادی
+              </option>
+              <option value= 'چقایی'>
+              چقایی
+              </option>
+              <option value= 'جودکی'>
+              جودکی
+              </option>
+              <option value=  'خراط نژاد'>
+              خراط نژاد
+              </option>
+                        <option value=  'حسینی'>
+              حسینی
+              </option>
+                        <option value=  'ذوالفقاری'>
+              ذوالفقاری
+              </option>
+                                  <option value=  'عظیم محمدی'>
+              عظیم محمدی
+              </option>
+
+         
+
+   
+      </select>
         <button type="submit" > جستجو</button>
     
     </form>
@@ -43,15 +108,26 @@ new Chart(document.getElementById("bar-chart"), {
     data: {
       labels: {{labels|safe}},
       datasets: [
+
         {
-          label: "دقیقه",
+          label: "میانگین",
+          backgroundColor: 'black',
+          borderColor:'black',
+          fill: false,
+          pointRadius: 0, 
+          data: {{avarege|safe}}
+        },      
+        {
+          label: "گشت روزانه",
           backgroundColor: "#2550FF",
           data: {{data|safe}}
         },
+
       ]
     },
     options: {
-      legend: { display: false },
+      
+      legend: { display: true },
       title: {
         display: true,
         text:  'نمودار مدت گشت زنی به دقیقه'

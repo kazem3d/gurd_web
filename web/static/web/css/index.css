@@ -26,9 +26,17 @@ body {
 
 }
 
-p .comment {
+.comment {
 
   direction: rtl ;
+  
+  margin: auto;
+  width:65%;
+  padding: 30px;
+  
+  font-family: 'Markazi Text', serif;
+  font-size: large;
+  text-align: right;
  
 
 

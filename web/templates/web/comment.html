@@ -1,0 +1,20 @@
+{% extends 'web/_base.html' %}
+{% load static %}
+
+
+{% block page_titile %}
+ثبت پیام
+{% endblock page_titile %}
+
+{% block main %}
+<div class='comment'>
+    <form action='' method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary btn-lg">ثبت</button>
+       
+    </form>
+</div>
+
+{% endblock main %}
+
