@@ -1,5 +1,6 @@
 from django.db import models
 import datetime
+from account.models import User
 
 # Create your models here.
 
@@ -36,6 +37,7 @@ class TourData(models.Model):
 
 class Comment(models.Model):
     content=models.TextField('متن',)
+    publisher=models.ForeignKey(User, verbose_name="کاربر", on_delete=models.CASCADE)
     publish_date=models.DateTimeField('تاریخ ثبت',auto_now_add=True)
 
     def __str__(self):

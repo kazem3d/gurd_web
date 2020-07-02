@@ -8,6 +8,7 @@ import datetime
 import jdatetime
 from .forms import CommentForm
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -127,7 +128,7 @@ def details_report(request)  :
 
     return render(request,'web/detail_report.html')
 
-    
+@login_required   
 def comment(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -139,6 +140,7 @@ def comment(request):
             obj=Comment()
             message=form.cleaned_data['content']
             obj.content=message
+            obj.publisher=request.user
             obj.save()        
             
     
@@ -156,3 +158,4 @@ def compare_report(request):
 
 def date_report(request):
     return HttpResponse ('<h1>در دست ساخت</h1>')
+

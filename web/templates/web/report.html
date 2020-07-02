@@ -18,7 +18,8 @@
       {% for comment in comments%}
         
         <p>{{comment.content}}</p>
-        <p> {{comment.publish_date|date}} </p>
+     
+        <p>{{comment.publisher.first_name}} __  ساعت: {{comment.publish_date|date:"P"}} </p>
         <hr>
     
       {% endfor %}
